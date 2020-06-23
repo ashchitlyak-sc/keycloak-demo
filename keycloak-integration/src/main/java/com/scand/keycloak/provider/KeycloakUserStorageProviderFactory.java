@@ -48,7 +48,7 @@ public class KeycloakUserStorageProviderFactory implements UserStorageProviderFa
             .property().name(DB_CONNECTION_NAME_KEY)
             .type(ProviderConfigProperty.STRING_TYPE)
             .label("Connection Name")
-            .defaultValue("")
+            .defaultValue("test")
             .helpText("Name of the connection, can be chosen individually. Enables connection sharing between providers if the same name is provided. Overrides currently saved connection properties.")
             .add()
 
