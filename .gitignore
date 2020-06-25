@@ -1,8 +1,13 @@
 .idea
 .vscode
 
-# keycloak should be in initial state
+# keycloak should be in the initial state
 keycloak
 
 /keycloak-integration/.gradle
 /keycloak-integration/build
+/keycloak-integration/lombok.config
+
+/keycloak-webapp/.gradle
+/keycloak-webapp/build
+/keycloak-webapp/lombok.config
