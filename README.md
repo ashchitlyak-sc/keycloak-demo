@@ -6,6 +6,15 @@ The goal is to try of [Keycloak](https://www.keycloak.org/) and implement a Demo
 
 It is a Keycloak server.
 
+**Database Configuration:**
+
+- Server: **MS SQL**
+- Name: **keycloak**
+- User: **SA**
+- Password: **SA_PASSWORD**
+
+_Note: You can change configuration [here](https://github.com/ashchitlyak-sc/keycloak-demo/blob/master/keycloak/standalone/configuration/standalone.xml#L132)._
+
 **To Run:**
 
 1. Go to `bin` directory.
