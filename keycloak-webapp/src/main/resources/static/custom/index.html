@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">
+
+    <title>Keycloak Web Application</title>
+</head>
+<body class="text-center" data-gr-c-s-loaded="true">
+    <form id="signin-form" class="form-sign">
+        <img class="mb-4" src="https://dyltqmyl993wv.cloudfront.net/assets/stacks/keycloak-gatekeeper/img/keycloak-gatekeeper-stack-220x234.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+
+        <label for="login" class="sr-only">Login</label>
+        <input type="text" id="login" class="form-control" placeholder="Login" required>
+
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-dark btn-block" type="submit">Sign In</button>
+        <p class="text-secondary">No account? <a href="signup.html" class="link-dark">Sign Up</a></p>
+    </form>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    function login(event) {
+        event.preventDefault();
+
+        const login = event.target.login.value;
+        const password = event.target.password.value;
+
+        axios.post('/login', { username: login, password: password }).
+            then(response => {
+                this.keycloakToken = response.data.access_token;
+            }).
+            catch(console.log);
+
+        return false;
+    }
+
+    document.getElementById('signin-form').addEventListener('submit', login);
+</script>
+</html>

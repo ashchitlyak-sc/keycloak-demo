@@ -1,7 +1,7 @@
 package com.scand.keycloak.provider;
 
-import com.scand.keycloak.adapter.UserAdapter;
 import com.scand.keycloak.domain.User;
+import com.scand.keycloak.representation.UserRepresentation;
 import com.scand.keycloak.service.UserService;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.GroupModel;
@@ -38,7 +38,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
             return null;
         }
 
-        return new UserAdapter(user, session, realm, model);
+        return getUserRepresentation(user, realm);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
             return null;
         }
 
-        return new UserAdapter(user, session, realm, model);
+        return getUserRepresentation(user, realm);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
             return null;
         }
 
-        return new UserAdapter(user, session, realm, model);
+        return getUserRepresentation(user, realm);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     public List<UserModel> getUsers(RealmModel realm) {
         return userService.getUsers()
             .stream()
-            .map(user -> new UserAdapter(user, session, realm, model))
+            .map(user -> getUserRepresentation(user, realm))
             .collect(Collectors.toList());
     }
 
@@ -78,7 +78,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     public List<UserModel> getUsers(RealmModel realm, int first, int max) {
         return userService.getUsers(first, max)
             .stream()
-            .map(user -> new UserAdapter(user, session, realm, model))
+            .map(user -> getUserRepresentation(user, realm))
             .collect(Collectors.toList());
     }
 
@@ -86,7 +86,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     public List<UserModel> searchForUser(String term, RealmModel realm) {
         return userService.searchForUserByUsernameOrEmail(term)
             .stream()
-            .map(user -> new UserAdapter(user, session, realm, model))
+            .map(user -> getUserRepresentation(user, realm))
             .collect(Collectors.toList());
     }
 
@@ -94,7 +94,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     public List<UserModel> searchForUser(String term, RealmModel realm, int first, int max) {
         return userService.searchForUserByUsernameOrEmail(term, first, max)
             .stream()
-            .map(user -> new UserAdapter(user, session, realm, model))
+            .map(user -> getUserRepresentation(user, realm))
             .collect(Collectors.toList());
     }
 
@@ -102,7 +102,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
         return userService.getUsers()
             .stream()
-            .map(user -> new UserAdapter(user, session, realm, model))
+            .map(user -> getUserRepresentation(user, realm))
             .collect(Collectors.toList());
     }
 
@@ -110,7 +110,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm, int firstResult, int maxResults) {
         return userService.getUsers()
             .stream()
-            .map(user -> new UserAdapter(user, session, realm, model))
+            .map(user -> getUserRepresentation(user, realm))
             .collect(Collectors.toList());
     }
 
@@ -138,7 +138,7 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
         user.setLogin(username);
 
         User createdUser = userService.create(user);
-        return new UserAdapter(createdUser, session, realm, model);
+        return getUserRepresentation(createdUser, realm);
     }
 
     @Override
@@ -155,5 +155,9 @@ public class KeycloakUserStorageProvider implements UserStorageProvider, UserLoo
     @Override
     public void close() {
         userService.close();
+    }
+
+    private UserRepresentation getUserRepresentation(User user, RealmModel realm) {
+        return new UserRepresentation(user, session, realm, model, userService);
     }
 }

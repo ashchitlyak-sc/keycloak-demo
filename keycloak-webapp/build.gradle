@@ -1,0 +1,23 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com.scand'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile "org.keycloak.bom:keycloak-adapter-bom:10.0.2"
+	compile "org.springframework.boot:spring-boot-starter"
+	compile "org.keycloak:keycloak-spring-boot-starter:10.0.2"
+	compile "org.springframework.boot:spring-boot-starter-security"
+	compile "org.springframework.boot:spring-boot-starter-web"
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+	compile "com.squareup.okhttp3:okhttp:4.7.2"
+}

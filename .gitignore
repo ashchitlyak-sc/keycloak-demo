@@ -1,8 +1,9 @@
 .idea
 .vscode
+lib
 
 # keycloak should be in the initial state
-keycloak
+/keycloak
 
 /keycloak-integration/.gradle
 /keycloak-integration/build

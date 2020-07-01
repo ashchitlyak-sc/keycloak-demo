@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">
+
+    <title>Keycloak Web Application</title>
+</head>
+<body class="text-center" data-gr-c-s-loaded="true">
+    <form id="signup-form" class="form-sign">
+        <img class="mb-4" src="https://dyltqmyl993wv.cloudfront.net/assets/stacks/keycloak-gatekeeper/img/keycloak-gatekeeper-stack-220x234.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+
+        <label for="login" class="sr-only">Login</label>
+        <input type="text" id="login" class="form-control" placeholder="Login" required>
+
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="Email" required>
+
+        <label for="firstName" class="sr-only">First Name</label>
+        <input type="text" id="firstName" class="form-control" placeholder="First name" required>
+
+        <label for="lastName" class="sr-only">Last Name</label>
+        <input type="text" id="lastName" class="form-control" placeholder="Last name" required>
+
+        <button class="btn btn-lg btn-dark btn-block" type="submit">Sign Up</button>
+        <p class="text-secondary">Back to <a href="index.html" class="link-dark">Sign In</a></p>
+    </form>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    let keycloakToken = null;
+
+    function getKeycloakToken() {
+        return this.keycloakToken;
+    }
+
+    function authInKeycloak() {
+        axios.post('/login', { username: "admin", password: "admin" }).
+            then(response => {
+                this.keycloakToken = response.data.access_token;
+            }).
+            catch(console.log);
+    }
+
+    function handleSignUpFormSubmit(event) {
+        event.preventDefault();
+
+        const login = event.target.login.value;
+        const password = event.target.password.value;
+        const email = event.target.email.value;
+        const firstName = event.target.firstName.value;
+        const lastName = event.target.lastName.value;
+
+        const data = {
+            username: login,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            credentials: [{
+                type: 'password',
+                value: password
+            }]
+        };
+
+        axios.post('http://localhost:8080/auth/admin/realms/master/users', data, {
+            headers: {
+                'Authorization':`Bearer ${getKeycloakToken()}`
+            }
+        }).
+            then(response => {
+                if (response.status === 201) {
+                    window.location.href = "/";
+                }
+            }).
+            catch(console.log);
+    }
+
+    authInKeycloak();
+
+    document.getElementById("signup-form").addEventListener('submit', handleSignUpFormSubmit);
+</script>
+</html>
