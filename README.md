@@ -48,3 +48,13 @@ Try to use an external database for Keycloak Service.
 **[KeycloakUserStorageProvider](/keycloak-integration/src/main/java/com/scand/keycloak/provider/KeycloakUserStorageProvider.java)**
 
 **[KeycloakUserStorageProviderFactory](/keycloak-integration/src/main/java/com/scand/keycloak/provider/KeycloakUserStorageProviderFactory.java)**
+
+## [Keycloak Application](keycloak-webapp)
+
+Spring Boot application with usage of **external** keycloak server.
+
+## [Keycloak Embedded Application](keycloak-embedded-webapp)
+
+Spring Boot application with usage of **embedded** keycloak server.
+
+_Based on: [Keycloak Embedded in a Spring Boot Application](https://www.baeldung.com/keycloak-embedded-in-spring-boot-app) tutorial._

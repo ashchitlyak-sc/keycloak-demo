@@ -5,9 +5,6 @@ lib
 # keycloak should be in the initial state
 /keycloak
 
-/keycloak-embedded/.idea
-/keycloak-embedded/target
-
 /keycloak-integration/.gradle
 /keycloak-integration/build
 /keycloak-integration/lombok.config
@@ -15,3 +12,6 @@ lib
 /keycloak-webapp/.gradle
 /keycloak-webapp/build
 /keycloak-webapp/lombok.config
+
+/keycloak-embedded-webapp/.idea
+/keycloak-embedded-webapp/target
