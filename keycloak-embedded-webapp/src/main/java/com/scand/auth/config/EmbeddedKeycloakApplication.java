@@ -25,8 +25,7 @@ public class EmbeddedKeycloakApplication extends KeycloakApplication {
 	
 	protected void loadConfig() {
         JsonConfigProviderFactory factory = new RegularJsonConfigProviderFactory();
-        Config.init(factory.create()
-            .orElseThrow(() -> new NoSuchElementException("No value present")));
+        Config.init(factory.create().orElseThrow(() -> new NoSuchElementException("No value present")));
     }
 
 	public EmbeddedKeycloakApplication() {

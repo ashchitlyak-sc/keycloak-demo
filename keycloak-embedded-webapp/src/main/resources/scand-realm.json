@@ -1573,7 +1573,15 @@
     "defaultAction" : false,
     "priority" : 50,
     "config" : { }
-  } ],
+  }, {
+    "alias" : "sms-authentication",
+    "name" : "Verify Phone",
+    "providerId" : "sms-authentication",
+    "enabled" : true,
+    "defaultAction" : false,
+    "priority" : 50,
+    "config" : { }
+  }],
   "browserFlow" : "browser",
   "registrationFlow" : "registration",
   "directGrantFlow" : "direct grant",
